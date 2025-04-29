@@ -28,10 +28,11 @@ public class UsuarioController {
         return new ResponseEntity<>(usuarioService.getAllUsuarios(), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Usuario> postUsuario(@RequestBody @Valid Usuario usuario) throws UniqueException {
-        return new ResponseEntity<>(usuarioService.postUsuario(usuario), HttpStatus.CREATED);
-    }
+    //Ruta comentada por la implementacion de registro.
+//    @PostMapping
+//    public ResponseEntity<Usuario> postUsuario(@RequestBody @Valid Usuario usuario) throws UniqueException {
+//        return new ResponseEntity<>(usuarioService.postUsuario(usuario), HttpStatus.CREATED);
+//    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> putUsuario(@PathVariable Long id, @RequestBody @Valid UsuarioDTO usuarioDTO)
