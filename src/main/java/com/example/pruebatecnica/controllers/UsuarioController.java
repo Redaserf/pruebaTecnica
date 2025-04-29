@@ -34,7 +34,9 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> putUsuario(@PathVariable Long id, @RequestBody @Valid UsuarioDTO usuarioDTO) throws NotFoundExcpetion, UniqueException {
+    public ResponseEntity<Usuario> putUsuario(@PathVariable Long id, @RequestBody @Valid UsuarioDTO usuarioDTO)
+            throws NotFoundExcpetion, UniqueException {
+
         return new ResponseEntity<>(usuarioService.updateUsuario(id, usuarioDTO), HttpStatus.OK);
     }
 

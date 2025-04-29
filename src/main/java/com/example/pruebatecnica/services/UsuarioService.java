@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -68,5 +70,4 @@ public class UsuarioService {
 
         return new UsuarioDeleted("El usuario con el id: " + id + " ha sido eliminado correctamente");
     }
-
 }
