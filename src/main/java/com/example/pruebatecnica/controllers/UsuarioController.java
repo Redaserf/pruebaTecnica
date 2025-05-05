@@ -9,6 +9,7 @@ import com.example.pruebatecnica.services.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -26,6 +27,13 @@ public class UsuarioController {
     @GetMapping
     public ResponseEntity<List<Usuario>> getAllUsuarios(){
         return new ResponseEntity<>(usuarioService.getAllUsuarios(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{page}")
+    public Page<Usuario> getUsuariosPaginados(
+            @RequestParam(required = false, defaultValue = "0") int page,
+            @RequestParam(required = false, defaultValue = "10") Integer size){
+        return usuarioService.getUsuariosPaginados(page, size);
     }
 
     //Ruta comentada por la implementacion de registro.

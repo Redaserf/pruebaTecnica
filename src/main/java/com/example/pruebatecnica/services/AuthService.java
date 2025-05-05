@@ -58,7 +58,8 @@ public class AuthService {
         usuarioRepository.save(usuario);
 
 
-        emailService.sendEmailFromTemplate(usuario);
+        //comentado para no enviar emails y mal gastar el uso de mailtrap
+//        emailService.sendEmailFromTemplate(usuario);
 
         return AuthResponse.builder().token(jwtService.getToken(usuario)).build();
     }

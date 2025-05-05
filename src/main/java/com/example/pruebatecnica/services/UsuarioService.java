@@ -11,6 +11,9 @@ import org.apache.juli.logging.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,11 +35,18 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
+    public Page<Usuario> getUsuariosPaginados(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return usuarioRepository.findAll(pageable);
+    }
+
     public Usuario postUsuario(Usuario usuario) throws UniqueException {
         usuario.setFechaRegistro(LocalDateTime.now());
         if(usuarioRepository.existsByEmail(usuario.getEmail())){//si ya existe el email arroja la excepcion de Unique
             throw new UniqueException("El email no es válido");
         }
+
+        Pageable paginacionConCincoUsuarios = PageRequest.ofSize(5);
 
         return usuarioRepository.save(usuario);
     }
@@ -70,4 +80,10 @@ public class UsuarioService {
 
         return new UsuarioDeleted("El usuario con el id: " + id + " ha sido eliminado correctamente");
     }
+
+
+    public void postAllUsuarios(List<Usuario> usuarios){
+        usuarioRepository.saveAll(usuarios);
+    }
+
 }
