@@ -16,6 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +27,7 @@ public class AuthService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final EmailService emailService;
 
     public AuthResponse login(LoginRequest request) {
 
@@ -53,6 +56,9 @@ public class AuthService {
                 .build();
 
         usuarioRepository.save(usuario);
+
+
+        emailService.sendEmailFromTemplate(usuario);
 
         return AuthResponse.builder().token(jwtService.getToken(usuario)).build();
     }
